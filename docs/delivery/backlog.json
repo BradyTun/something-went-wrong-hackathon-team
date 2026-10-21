@@ -1,0 +1,1040 @@
+{
+  "schema_version": 1,
+  "baseline_date": "2026-10-21",
+  "implementation_started": true,
+  "sprint_schedule": "proposed; undated; capacity unestimated",
+  "decision_register": [
+    {
+      "id": "DEC-01",
+      "question": "Driver result to customer status mapping, retries and terminal transitions",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-02",
+      "question": "Expected-date sign, calendar/business days, inclusivity and holidays",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-03",
+      "question": "Customer edit proof, expiry, revocation and parcel scope",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-04",
+      "question": "Customer edit window and lock states",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-05",
+      "question": "Instruction length and content constraints",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-06",
+      "question": "Photo types, size, count, mandatory rules, access and retention",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-07",
+      "question": "Notification channels and read-state expectations",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-08",
+      "question": "Staff login, provisioning, recovery, disabling and account ownership",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-09",
+      "question": "Tracking-code communication channel",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-10",
+      "question": "Parcel edit matrix after assignment and delivery",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-11",
+      "question": "Initial status, Processing Delivery meaning, dispatch and delay triggers",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-12",
+      "question": "Reassignment recipients, deduplication and previous-driver visibility",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-13",
+      "question": "Driver lifecycle, duplicates and login-management boundaries",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-14",
+      "question": "Exact public tracking fields",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-15",
+      "question": "Performance, availability, devices, retention and timezone conventions",
+      "status": "proposed",
+      "adr": null
+    },
+    {
+      "id": "DEC-16",
+      "question": "Payment-specific order amount, zero/negative amount and fee rules",
+      "status": "proposed",
+      "adr": null
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "sprint": "S01",
+      "title": "Confirm kickoff baseline and decision ownership",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        0
+      ],
+      "depends_on": [],
+      "decision_gates": [],
+      "target_paths": [
+        "docs/decisions/",
+        "docs/delivery/"
+      ],
+      "acceptance": [
+        "Review both sources and reconcile scope against this structure.",
+        "Identify product deciders and record ambiguities without approving them.",
+        "Confirm capacity and sequence or retain undated sprint proposals."
+      ],
+      "validation": [
+        "Source-to-backlog review; planning validator; record outstanding decisions."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-002",
+      "sprint": "S01",
+      "title": "Define persona flows, states and reference audit",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        0,
+        1
+      ],
+      "depends_on": [
+        "TASK-001"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "docs/design/"
+      ],
+      "acceptance": [
+        "Write success, denied, error and retry paths for all personas.",
+        "Inspect current public references and record sources; do not invent comparisons.",
+        "Define navigation, wireframes and applicable screen states."
+      ],
+      "validation": [
+        "Review flows against PRD and implementation-plan section 7."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-003",
+      "sprint": "S01",
+      "title": "Define architecture, policy seams and API contracts",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        0
+      ],
+      "depends_on": [
+        "TASK-001"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "docs/architecture/"
+      ],
+      "acceptance": [
+        "Document services, repositories, DTOs and permission matrix.",
+        "Specify current-assignment concurrency, retry and storage lifecycle contracts.",
+        "Keep undecided behavior disabled; reconcile parcel-code pages with assignment-ID APIs."
+      ],
+      "validation": [
+        "Review section 6 endpoints, privacy boundaries and dependency direction."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-004",
+      "sprint": "S01",
+      "title": "Initialize pinned toolchain, local services and CI",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        0,
+        1
+      ],
+      "depends_on": [
+        "TASK-003"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "src/app/",
+        "docker-compose.yml",
+        ".env.example",
+        ".github/workflows/ci.yml",
+        "docs/runbooks/local-development.md"
+      ],
+      "acceptance": [
+        "Verify official version compatibility and pin stack with lockfile.",
+        "Provide reproducible local PostgreSQL setup and environment validation.",
+        "Wire real lint/typecheck/unit/build checks; add database/browser checks when infrastructure exists."
+      ],
+      "validation": [
+        "Fresh pnpm install --frozen-lockfile; pnpm lint; pnpm typecheck; pnpm test:unit; pnpm build."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-005",
+      "sprint": "S01",
+      "title": "Build accessible tokens, primitives and persona shells",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        1
+      ],
+      "depends_on": [
+        "TASK-002",
+        "TASK-004"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "src/styles/tokens.css",
+        "src/components/ui/",
+        "src/components/layouts/",
+        "src/app/",
+        "docs/design/tokens.md"
+      ],
+      "acceptance": [
+        "Use Sora and documented proposed tokens without inventing brand approval.",
+        "Build reusable form/status primitives and persona shells without business logic.",
+        "Verify keyboard focus, mobile widths and loading/error/empty states."
+      ],
+      "validation": [
+        "Component tests; a11y smoke; reviewed mobile/desktop screenshots; lint/typecheck/build."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-006",
+      "sprint": "S02",
+      "title": "Implement policy-neutral schema and integrity boundaries",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        2
+      ],
+      "depends_on": [
+        "TASK-003",
+        "TASK-004"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "prisma/",
+        "docs/architecture/data-model.md"
+      ],
+      "acceptance": [
+        "Separate staff identity and driver records; preserve audit references.",
+        "Enforce unique parcel/tracking fields, FKs and a single current assignment.",
+        "Avoid unapproved defaults/transitions; document later policy-dependent migrations."
+      ],
+      "validation": [
+        "Fresh migration; uniqueness, FK and current-assignment integrity integration checks."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-007",
+      "sprint": "S02",
+      "title": "Create isolated fixtures and database test harness",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        2
+      ],
+      "depends_on": [
+        "TASK-006"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "tests/fixtures/",
+        "tests/helpers/",
+        "tests/integration/",
+        "prisma/seed.ts",
+        "docs/testing/fixtures.md",
+        ".github/workflows/ci.yml"
+      ],
+      "acceptance": [
+        "Use synthetic admin, two drivers, assigned/unassigned/reassigned parcels.",
+        "Isolate test database and prevent destructive execution on production.",
+        "Wire real integration scripts and CI database lifecycle."
+      ],
+      "validation": [
+        "Fresh migrate/seed; repeated isolated integration runs; reset safety review."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-008",
+      "sprint": "S02",
+      "title": "Implement approved staff sessions and provisioning",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        3
+      ],
+      "depends_on": [
+        "TASK-007"
+      ],
+      "decision_gates": [
+        "DEC-08"
+      ],
+      "target_paths": [
+        "src/lib/auth/",
+        "src/app/(staff)/login/"
+      ],
+      "acceptance": [
+        "Use established compatible auth and approved internal provisioning.",
+        "Link authenticated driver identity to driver record; no public signup.",
+        "Implement approved recovery/disable/session rules without custom crypto."
+      ],
+      "validation": [
+        "Session integration; invalid/no-session cases; CSRF checks on cookie mutations."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-009",
+      "sprint": "S02",
+      "title": "Enforce role and object authorization",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        3
+      ],
+      "depends_on": [
+        "TASK-008"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "src/lib/auth/",
+        "tests/integration/authorization.integration.test.ts"
+      ],
+      "acceptance": [
+        "Protect admin services and restrict drivers to current owned objects.",
+        "Deny no-session, wrong-role and cross-driver reads/writes without private leakage.",
+        "Provide ownership checks reusable at commit time."
+      ],
+      "validation": [
+        "Service-level unauthorized matrix including calls bypassing UI."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-010",
+      "sprint": "S03",
+      "title": "Deliver driver create/list/detail/edit",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "ADM-01"
+      ],
+      "plan_phases": [
+        4
+      ],
+      "depends_on": [
+        "TASK-005",
+        "TASK-009"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "src/features/drivers/",
+        "src/app/(staff)/admin/drivers/",
+        "src/app/api/v1/admin/drivers/"
+      ],
+      "acceptance": [
+        "Validate required name/contact/vehicle type/number server-side and in forms.",
+        "Persist/display valid records and edit allowed business fields.",
+        "Expose valid drivers for assignment; add no deletion/deactivation workflow."
+      ],
+      "validation": [
+        "Form/unit/API/DB checks; admin create/edit E2E; wrong-role denials."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-011",
+      "sprint": "S03",
+      "title": "Deliver parcel creation and unique codes",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "ADM-02"
+      ],
+      "plan_phases": [
+        5
+      ],
+      "depends_on": [
+        "TASK-005",
+        "TASK-009"
+      ],
+      "decision_gates": [
+        "DEC-11",
+        "DEC-16"
+      ],
+      "target_paths": [
+        "src/features/parcels/",
+        "src/app/(staff)/admin/parcels/",
+        "src/app/api/v1/admin/parcels/"
+      ],
+      "acceptance": [
+        "Persist sender/recipient/address and approved payment/initial-status data atomically.",
+        "Generate separate unique parcel/tracking fields with collision recovery.",
+        "Display codes for manual copy; preserve invalid form input."
+      ],
+      "validation": [
+        "Prepaid/COD tests; code collisions; rollback; parcel-create E2E."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-012",
+      "sprint": "S03",
+      "title": "Complete admin parcel reads and validation UX",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "ADM-02"
+      ],
+      "plan_phases": [
+        5
+      ],
+      "depends_on": [
+        "TASK-011"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "src/features/parcels/mapper.ts",
+        "src/app/(staff)/admin/parcels/"
+      ],
+      "acceptance": [
+        "Provide authorized list/detail matching saved data.",
+        "Add no unapproved parcel editing or automated communication.",
+        "Verify keyboard error focus, pending/copy feedback and retry recovery."
+      ],
+      "validation": [
+        "Read/API permission tests; responsive form review; admin E2E."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-013",
+      "sprint": "S04",
+      "title": "Prepare notification event and recipient interfaces",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "DRV-02",
+        "ADM-03"
+      ],
+      "plan_phases": [
+        6,
+        11
+      ],
+      "depends_on": [
+        "TASK-007",
+        "TASK-009"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "src/features/notifications/",
+        "docs/architecture/api-contracts.md"
+      ],
+      "acceptance": [
+        "Define preference/instruction/assignment events and transactional writer seam.",
+        "Specify resolver/dedup contract without guessing production recipients.",
+        "Disable unapproved transport/read-state behavior; no external queues."
+      ],
+      "validation": [
+        "Contract tests with explicit test-only policies; list pending production scenarios."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-014",
+      "sprint": "S04",
+      "title": "Deliver manual-date assignment and reassignment",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "ADM-03"
+      ],
+      "plan_phases": [
+        6
+      ],
+      "depends_on": [
+        "TASK-010",
+        "TASK-012",
+        "TASK-013"
+      ],
+      "decision_gates": [
+        "DEC-12"
+      ],
+      "target_paths": [
+        "src/features/assignments/",
+        "src/app/(staff)/admin/assignments/",
+        "src/app/api/v1/admin/assignments/"
+      ],
+      "acceptance": [
+        "Assign valid parcel/driver with explicit assign/delivery dates; list omits photo.",
+        "Reassign current ownership atomically with approved driver notifications.",
+        "Handle concurrent admins safely and preserve history/status; no automatic date math."
+      ],
+      "validation": [
+        "DB concurrency and stale-owner tests; admin assign/reassign E2E."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-015",
+      "sprint": "S04",
+      "title": "Deliver dated driver worklist and parcel detail",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "DRV-01"
+      ],
+      "plan_phases": [
+        7
+      ],
+      "depends_on": [
+        "TASK-014"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "src/features/driver-worklist/",
+        "src/app/(staff)/driver/deliveries/",
+        "src/app/api/v1/driver/assignments/"
+      ],
+      "acceptance": [
+        "Filter by date and current authenticated driver; show required list/detail fields.",
+        "Copy phone accessibly and preserve selected date on navigation.",
+        "Display nullable preferences/instructions without invented defaults or route maps."
+      ],
+      "validation": [
+        "Date/ownership integration; copy interaction; mobile E2E and denied direct URLs."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-016",
+      "sprint": "S05",
+      "title": "Prepare result, mapping and storage policy interfaces",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "DRV-01",
+        "CUS-04"
+      ],
+      "plan_phases": [
+        8
+      ],
+      "depends_on": [
+        "TASK-003",
+        "TASK-007"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "src/features/delivery-results/",
+        "src/lib/storage/",
+        "docs/architecture/api-contracts.md"
+      ],
+      "acceptance": [
+        "Define exact driver labels and injectable mapping/photo policies.",
+        "Specify private staged uploads and cleanup on persistence failure.",
+        "Specify idempotency and stale-owner contracts; no production result behavior enabled."
+      ],
+      "validation": [
+        "Policy/interface tests with explicit test-only rules; unresolved scenarios remain pending."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-017",
+      "sprint": "S05",
+      "title": "Implement approved private photo storage",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "DRV-01",
+        "ADM-03"
+      ],
+      "plan_phases": [
+        8
+      ],
+      "depends_on": [
+        "TASK-015",
+        "TASK-016"
+      ],
+      "decision_gates": [
+        "DEC-06"
+      ],
+      "target_paths": [
+        "src/lib/storage/",
+        "src/app/api/v1/files/"
+      ],
+      "acceptance": [
+        "Enforce approved types/size/count/status-specific requirements server-side.",
+        "Authorize uploads and short-lived driver/admin reads appropriately.",
+        "Bind metadata to parcel/assignment and handle failure/orphan cleanup."
+      ],
+      "validation": [
+        "Storage-emulator integration; unauthorized/expired reads; invalid uploads/failure recovery."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-018",
+      "sprint": "S05",
+      "title": "Deliver atomic result, mapped status and photo detail",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "DRV-01",
+        "CUS-04",
+        "ADM-03"
+      ],
+      "plan_phases": [
+        8
+      ],
+      "depends_on": [
+        "TASK-015",
+        "TASK-017"
+      ],
+      "decision_gates": [
+        "DEC-01",
+        "DEC-11"
+      ],
+      "target_paths": [
+        "src/features/delivery-results/",
+        "src/app/api/v1/driver/assignments/[id]/result/",
+        "src/features/assignments/"
+      ],
+      "acceptance": [
+        "Persist result/status/history/actor/time/photo consistently.",
+        "Recheck ownership at commit and handle retries without duplicate results.",
+        "Show authorized photo only in admin detail; failed writes leave public status unchanged."
+      ],
+      "validation": [
+        "Rollback/idempotency/stale-assignment race tests; driver E2E; admin photo access."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-019",
+      "sprint": "S05",
+      "title": "Deliver safe latest public tracking",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "CUS-01",
+        "CUS-04"
+      ],
+      "plan_phases": [
+        9
+      ],
+      "depends_on": [
+        "TASK-005",
+        "TASK-018"
+      ],
+      "decision_gates": [
+        "DEC-14"
+      ],
+      "target_paths": [
+        "src/features/tracking/",
+        "src/app/(public)/track/",
+        "src/app/api/v1/tracking/"
+      ],
+      "acceptance": [
+        "Valid code returns correct approved minimal DTO; invalid code gives recoverable error.",
+        "Show latest committed mapped status without stale-cache leakage.",
+        "Rate-limit enumeration and redact codes/private data in logs."
+      ],
+      "validation": [
+        "DTO negative assertions; invalid/rate-limit tests; result-to-tracking E2E including failed save."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-020",
+      "sprint": "S06",
+      "title": "Implement approved customer edit proof and eligibility",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "CUS-02",
+        "CUS-03"
+      ],
+      "plan_phases": [
+        10
+      ],
+      "depends_on": [
+        "TASK-009",
+        "TASK-019"
+      ],
+      "decision_gates": [
+        "DEC-03",
+        "DEC-04",
+        "DEC-05"
+      ],
+      "target_paths": [
+        "src/features/customer-preferences/policies/",
+        "src/app/api/v1/customer/"
+      ],
+      "acceptance": [
+        "Enforce approved proof, parcel scope, expiry/revocation and edit-state rules.",
+        "Validate instruction content/length; tracking-code possession alone grants no implicit edit rights.",
+        "Denied/locked requests have no mutation or private disclosure."
+      ],
+      "validation": [
+        "Forged/expired/wrong-parcel proof; lock boundaries; invalid text tests."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-021",
+      "sprint": "S06",
+      "title": "Deliver receiving options and instructions with alerts",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "CUS-02",
+        "CUS-03",
+        "DRV-02"
+      ],
+      "plan_phases": [
+        10
+      ],
+      "depends_on": [
+        "TASK-013",
+        "TASK-020"
+      ],
+      "decision_gates": [
+        "DEC-07",
+        "DEC-12"
+      ],
+      "target_paths": [
+        "src/features/customer-preferences/",
+        "src/features/notifications/",
+        "src/app/(public)/track/"
+      ],
+      "acceptance": [
+        "Offer exactly three PRD options and explicit save/current state.",
+        "Persist authorized change and correct driver notification atomically.",
+        "Preserve failed input and show locked/saved states; no accounts or external messaging."
+      ],
+      "validation": [
+        "Authorized/denied integration; rollback/dedup; preference E2E and driver detail refresh."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-022",
+      "sprint": "S06",
+      "title": "Deliver driver notification bell/list/filters",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "DRV-02"
+      ],
+      "plan_phases": [
+        11
+      ],
+      "depends_on": [
+        "TASK-014",
+        "TASK-021"
+      ],
+      "decision_gates": [
+        "DEC-07",
+        "DEC-12"
+      ],
+      "target_paths": [
+        "src/features/notifications/",
+        "src/app/(staff)/driver/notifications/",
+        "src/app/api/v1/driver/notifications/"
+      ],
+      "acceptance": [
+        "List only authorized notifications with required parcel/customer fields.",
+        "Filter date/code and open the correct currently authorized parcel.",
+        "Apply approved reassignment visibility/read state; stale links leak nothing."
+      ],
+      "validation": [
+        "Trigger/recipient/dedup/filter integration; notification E2E and cross-driver denial."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-023",
+      "sprint": "S06",
+      "title": "Implement approved expected delivery date",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "ADM-03"
+      ],
+      "plan_phases": [
+        6
+      ],
+      "depends_on": [
+        "TASK-014"
+      ],
+      "decision_gates": [
+        "DEC-02"
+      ],
+      "target_paths": [
+        "src/lib/dates/",
+        "src/features/assignments/"
+      ],
+      "acceptance": [
+        "Use approved sign/day type/inclusivity/weekend/holiday policy.",
+        "Keep scheduled date separate from calculated expected date.",
+        "Document date/timezone presentation and boundary examples."
+      ],
+      "validation": [
+        "Month/year/leap and holiday policy tests; assignment date UI verification."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-024",
+      "sprint": "S07",
+      "title": "Verify cross-persona acceptance and security failures",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [
+        "CUS-01",
+        "CUS-02",
+        "CUS-03",
+        "CUS-04",
+        "DRV-01",
+        "DRV-02",
+        "ADM-01",
+        "ADM-02",
+        "ADM-03"
+      ],
+      "plan_phases": [
+        12
+      ],
+      "depends_on": [
+        "TASK-010",
+        "TASK-012",
+        "TASK-018",
+        "TASK-019",
+        "TASK-021",
+        "TASK-022",
+        "TASK-023"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "tests/integration/",
+        "tests/e2e/",
+        "docs/requirements-matrix.md"
+      ],
+      "acceptance": [
+        "Verify every included PRD criterion against real persistence.",
+        "Cover roles, retries, failed upload/DB, concurrent reassignment and status freshness.",
+        "Record actual results and keep unresolved defects visible."
+      ],
+      "validation": [
+        "Full lint/typecheck/unit/integration/build; persona and security Playwright suites."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-025",
+      "sprint": "S07",
+      "title": "Complete accessibility, responsive and observed UX review",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        12
+      ],
+      "depends_on": [
+        "TASK-024"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "tests/a11y/",
+        "tests/visual/",
+        "docs/design/ux-test-report.md"
+      ],
+      "acceptance": [
+        "Review all plan viewports and applicable critical states.",
+        "Verify keyboard/screen-reader/zoom/contrast and reviewed screenshots.",
+        "Run actual participant/proxy studies per plan; resolve blocking findings."
+      ],
+      "validation": [
+        "Real a11y runner; visual review; assistive-tech evidence and participant observations."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-026",
+      "sprint": "S07",
+      "title": "Verify operational targets and recovery",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        12
+      ],
+      "depends_on": [
+        "TASK-024"
+      ],
+      "decision_gates": [
+        "DEC-15"
+      ],
+      "target_paths": [
+        "docs/runbooks/",
+        "docs/testing/release-checklist.md",
+        ".github/workflows/ci.yml"
+      ],
+      "acceptance": [
+        "Measure approved operational targets and state measurement limits.",
+        "Rehearse migration, backup/restore and rollback with nonproduction data.",
+        "Document secure config/retention and enforce required CI checks."
+      ],
+      "validation": [
+        "Production-build performance/load smoke; restore/rollback rehearsal; CI evidence."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-027",
+      "sprint": "S07",
+      "title": "Record release acceptance and Codex handoff",
+      "status": "todo",
+      "owner": null,
+      "prd_ids": [],
+      "plan_phases": [
+        12
+      ],
+      "depends_on": [
+        "TASK-025",
+        "TASK-026"
+      ],
+      "decision_gates": [],
+      "target_paths": [
+        "docs/testing/release-checklist.md",
+        "docs/delivery/reviews/",
+        "README.md"
+      ],
+      "acceptance": [
+        "Link code/tests/evidence for every PRD ID and identify deferred scope.",
+        "Record release recommendation and risks without implying deployment approval.",
+        "Provide reproducible commands and next safe task."
+      ],
+      "validation": [
+        "Planning validator; source-to-release review; evidence and unresolved-defect audit."
+      ],
+      "blocker": null,
+      "evidence": null
+    },
+    {
+      "id": "TASK-028",
+      "sprint": "S01",
+      "title": "Minimal landing page and Vercel deployment (explicit user fast-track)",
+      "status": "done",
+      "owner": "Codex",
+      "prd_ids": [],
+      "plan_phases": [
+        1
+      ],
+      "depends_on": [],
+      "decision_gates": [],
+      "target_paths": [
+        "src/app/",
+        "package.json",
+        ".vercelignore"
+      ],
+      "acceptance": [
+        "Render responsive coming-soon landing page without fake tracking functionality.",
+        "Build and typecheck successfully.",
+        "Deploy to Vercel and verify returned URL."
+      ],
+      "validation": [
+        "Vercel production next build (includes TypeScript check)",
+        "curl.exe -sS -I https://parcel-delivery-six.vercel.app",
+        "Vercel CLI curl production URL",
+        "node scripts/validate-planning.mjs"
+      ],
+      "blocker": null,
+      "evidence": "docs/delivery/evidence/TASK-028.md"
+    }
+  ]
+}
